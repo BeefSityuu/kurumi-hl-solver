@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "kurumi-hl-solver",
+  "version": "${version}",
+  "name": "kurumi-hl-solver",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/kurumi-hl-solver/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "com.sityuu.kurumiHlSolver.client.KurumiHlSolverDataGenerator"
+    ],
+    "client": [
+      "com.sityuu.kurumiHlSolver.client.KurumiHlSolverClient"
+    ],
+    "main": [
+      "com.sityuu.kurumiHlSolver.KurumiHlSolver"
+    ]
+  },
+  "mixins": [
+    "kurumi-hl-solver.mixins.json",
+    {
+      "config": "kurumi-hl-solver.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
