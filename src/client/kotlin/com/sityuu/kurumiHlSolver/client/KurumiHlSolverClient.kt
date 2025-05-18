@@ -5,6 +5,6 @@ import net.fabricmc.api.ClientModInitializer
 class KurumiHlSolverClient : ClientModInitializer {
 
     override fun onInitializeClient() {
-
+        println("aa")
     }
 }
