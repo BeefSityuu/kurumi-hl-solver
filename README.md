@@ -15,4 +15,7 @@ Fabric 1.21.4 用 MOD
 - Minecraft 1.21.4  
 - Fabric Loader 0.16.14+  
 - Fabric API  
-- Fabric Language Kotlin 1.13.3+kotlin.2.1.21+  
+- Fabric Language Kotlin 1.13.3+kotlin.2.1.21+
+
+## 備考
+主に GPT-4.1, GPT-o3 にて作成されています。
