@@ -6,5 +6,8 @@ class KurumiHlSolverClient : ClientModInitializer {
 
     override fun onInitializeClient() {
         println("aa")
+        EntityTracker.register()
+        NearbyHudRenderer.register()
+        HighLow.register()
     }
 }
