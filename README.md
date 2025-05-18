@@ -18,4 +18,5 @@ Fabric 1.21.4 用 MOD
 - Fabric Language Kotlin 1.13.3+kotlin.2.1.21+
 
 ## 備考
+Vibe Coding の練習として
 主に GPT-4.1, GPT-o3 にて作成されています。
