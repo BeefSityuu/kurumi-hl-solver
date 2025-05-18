@@ -1,8 +1,10 @@
 # Kurumi HL Solver  
   
 Fabric 1.21.4 用 MOD
+
 某鯖の "High and Low" の選択を分析し、判断を容易にするMODです。
-クライアント側で完結する MDO となっています。
+
+クライアント側で完結する MOD となっています。
   
 ## 主な機能  
   
