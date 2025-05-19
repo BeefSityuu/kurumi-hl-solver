@@ -9,14 +9,22 @@ import net.minecraft.text.Text
 import net.minecraft.entity.decoration.ArmorStandEntity
 import net.minecraft.block.Blocks
 import net.minecraft.entity.Entity
+import net.minecraft.scoreboard.Scoreboard
+import net.minecraft.scoreboard.ScoreboardDisplaySlot
+import net.minecraft.scoreboard.ScoreboardEntry
+import net.minecraft.scoreboard.ScoreboardObjective
 import net.minecraft.world.World
+import kotlin.math.round
 
 object HighLow {
     private var hasStarted = false
     private var rendererRegistered = false
     private var ticks = 0
     private const val RANGE = 32.0
-    private var hudMessage = mutableListOf("...", "...", "...", "...", "...")
+    private var hudMessage = mutableListOf("...", "...", "...", "...", "...", "...")
+
+    private val COLOR_CODE = Regex("§.")               // Minecraft colour codes
+    private val MONEY_REGEX = Regex("""所持金[:：]\s*([\d.]+)""")
 
     fun register() {
         ClientTickEvents.END_CLIENT_TICK.register { client: MinecraftClient ->
@@ -43,7 +51,7 @@ object HighLow {
                     // Draw your HUD element
                     val client = MinecraftClient.getInstance()
                     val tr = client.textRenderer
-                    var y = 150
+                    var y = 10
                     for (line in hudMessage) {
                         drawContext.drawText(tr, line, 10, y, 0xFFFFFF, true)
                         y += tr.fontHeight + 2
@@ -76,6 +84,9 @@ object HighLow {
         val data = getOrderedArmorStandsOnWool(client.world!!, EntityTracker.nearby)
         hudMessage[1] = "${numbers}"
         hudMessage[2] = "${data}"
+
+        // 所持金の 3%
+        hudMessage[5] = "§b3%: ${round(getSidebarMoney(client.world!!)*0.03)} §7/ ${getSidebarMoney(client.world!!)}"
 
         // それぞれの当たる確率を計算
         // そのために Key の位置を特定
@@ -130,7 +141,7 @@ object HighLow {
             val highChance = highSum/totalSum
             val lowExp = lowMul * lowChance
             val highExp = highMul * highChance
-            hudMessage[4] = "§9Low : ${RandUtil.round(100*lowChance, 2)}%, ${RandUtil.round(lowExp, 2)}x §7/ §cHigh : ${RandUtil.round(100*highChance, 4)}%, ${RandUtil.round(highExp, 4)}x"
+            hudMessage[4] = "§9Low : ${RandUtil.round(100*lowChance, 2)}%, ${RandUtil.round(lowExp, 4)}x §7/ §cHigh : ${RandUtil.round(100*highChance, 2)}%, ${RandUtil.round(highExp, 4)}x"
         }
 
         hudMessage[3] = "${getEntityNamesContaining("Low :")} / ${getEntityNamesContaining("High :")}"
@@ -209,6 +220,20 @@ object HighLow {
         return (0 until orderedWools.size).map { idx ->
             idx to (indexToNames[idx] ?: emptyList())
         }
+    }
+
+    fun getSidebarMoney(world: World): Double {
+        val plainLines: List<String> = ScoreboardUtils.sidebarLines(world)
+            .map { (text, _) -> COLOR_CODE.replace(text, "") }
+        if (plainLines.isEmpty()) { return 0.0 }
+
+        val money = plainLines
+            .firstNotNullOfOrNull { line ->
+                MONEY_REGEX.find(line)?.groupValues?.get(1)?.toDoubleOrNull()
+            }
+
+        return money ?: 0.0
+
     }
 
 
