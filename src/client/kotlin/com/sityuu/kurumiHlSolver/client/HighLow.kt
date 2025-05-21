@@ -159,8 +159,8 @@ object HighLow {
             Blocks.LIGHT_BLUE_WOOL,
             Blocks.GREEN_WOOL,
             Blocks.LIME_WOOL,
-            Blocks.ORANGE_WOOL,
             Blocks.YELLOW_WOOL,
+            Blocks.ORANGE_WOOL,
             Blocks.RED_WOOL
         )
         val woolIndexMap = orderedWools.withIndex().associate { it.value to it.index }
@@ -196,8 +196,8 @@ object HighLow {
             Blocks.LIGHT_BLUE_WOOL,
             Blocks.GREEN_WOOL,
             Blocks.LIME_WOOL,
-            Blocks.ORANGE_WOOL,
             Blocks.YELLOW_WOOL,
+            Blocks.ORANGE_WOOL,
             Blocks.RED_WOOL
         )
         val woolIndexMap = orderedWools.withIndex().associate { it.value to it.index }
